@@ -14,7 +14,7 @@ import ScrollToTop from "./component/ScrollToTop.jsx";
 const App = () => {
   return (
     <div>
-      <BrowserRouter>
+      <BrowserRouter basename="/Contactos">
         <ScrollToTop>
           <Navbar />
           <Routes>
