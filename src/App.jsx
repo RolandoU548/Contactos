@@ -1,35 +1,37 @@
-import React, { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import React from "react";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0);
+import injectContext from "./store/appContext";
 
+import { Home } from "./views/home.jsx";
+import { SpecificContact } from "./views/specificContact.jsx";
+import { NewContact } from "./views/newContact.jsx";
+import { EditContact } from "./views/editContact.jsx";
+
+import { Navbar } from "./component/Navbar.jsx";
+import ScrollToTop from "./component/ScrollToTop.jsx";
+
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount(count => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <BrowserRouter>
+        <ScrollToTop>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/contacts" element={<Navigate to="/" />} />
+            <Route path="/new-contact" element={<NewContact />} />
+            <Route path="/edit-contact/:id" element={<EditContact />} />
+            <Route path="/contacts/:id" element={<SpecificContact />} />
+            <Route
+              path="*"
+              element={<h1 className="text-center h1 fw-bold">Not found!</h1>}
+            />
+          </Routes>
+        </ScrollToTop>
+      </BrowserRouter>
+    </div>
   );
-}
+};
 
-export default App;
+export default injectContext(App);
